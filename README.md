@@ -16,7 +16,7 @@ The nessesary authorization values specified under `watson_assistant_contract.js
 
 Check out this [getting started guide][] for more fun functions to add to this template.
 
-### Setting up your Facebook app
+### Set up your Facebook app
 
 A Facebook app is what links your dedicated facebook page to your node.js app's webhook, and is where you will configure various permissions for your API, generate access tokens, and choose what events are sent to your webhook.
 
