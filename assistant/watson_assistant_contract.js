@@ -1,6 +1,6 @@
 module.exports = {
-    apiKey: "ptTi9-oXl1sc8BkKQ2io_aECuYLSFEmi2zYpeERsU7oW",
+    apiKey: "sf4cvDpude6RTE5swnAOuVRJO43HroCZ-grs2NoBbEff",
     url: "https://gateway-lon.watsonplatform.net/assistant/api",
     version: "2019-02-11",
-    assistantId: "6cbc35a9-0656-40bf-a5c5-ced2f9e74f69"
+    assistantId: "0b2ea938-00ba-43f5-8278-98fe2bf404dd"
 };

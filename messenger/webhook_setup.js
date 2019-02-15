@@ -98,9 +98,25 @@ function handleMessage(sender_psid, received_message, message_handler) {
         // Check if the message contains text
         if (received_message) {    
             // Create the payload for a basic text message
-            const response = {
-                "text": message
-            };
+            let response;
+
+            if (message.type == 'text') {
+                response = {
+                    "text": message.data.text
+                };
+            }
+            else if (message.type == 'image') {
+                response = {
+                    //"text": message.data.title,
+                    "attachment": {
+                    "type": "image",
+                    "payload": {
+                        "url": message.data.source,
+                        "is_reusable": true
+                    }
+                }
+                };
+            }
 
             // Sends the response message
             callSendAPI(sender_psid, response);
@@ -127,7 +143,7 @@ function callSendAPI(sender_psid, response) {
         (err, res, body) => {
             if (!err) {
                 console.log('\nSuccessfully sent response.');
-                console.log('- Response: ' + response.text);
+                console.log('- Response: ' + JSON.stringify(response));
                 console.log("");
             } 
             else {

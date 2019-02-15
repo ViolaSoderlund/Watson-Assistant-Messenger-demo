@@ -99,10 +99,30 @@ function analyze_message(message) {
                 function(err, response) {
                     if (!handle_error(err)) {
                         console.log("\nMessage has been successfully analyzed.");
-                        console.log("- Response: " + response.output.generic[0].text);
+                        console.log("- Response: " + response.output.generic[0].response_type);
                         console.log("");
 
-                        resolve(response.output.generic[0].text);
+                        let data;
+
+                        if (response.output.generic[0].response_type == 'text') {
+                            data = {
+                                type: 'text',
+                                text: response.output.generic[0].text
+                            }
+                        }
+                        else if (response.output.generic[0].response_type == 'image') {
+                            data = {
+                                type: 'image',
+                                title: response.output.generic[0].title,
+                                description: response.output.generic[0].description,
+                                source: response.output.generic[0].source
+                            }
+                        }
+
+                        resolve({
+                            type: response.output.generic[0].response_type,
+                            data: data
+                        });
                     }
                     else {
                         console.log("\nAssistant failed to analyze message.\n");
