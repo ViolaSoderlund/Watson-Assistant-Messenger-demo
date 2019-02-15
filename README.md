@@ -1,43 +1,55 @@
 # HackYourWorld Watson Assistant Node.js demo
 
-Clone the project: `git clone git@git.eu-gb.bluemix.net:viola.soderlund/hackyourworld-watson-assistant-node.js-demo.git`
+## Get Started
 
-Install the node modules: `npm install`.
+1) Clone the project: `git clone git@git.eu-gb.bluemix.net:viola.soderlund/hackyourworld-watson-assistant-node.js-demo.git`
 
-Messager cannot call on a localhost adress. Expose your local server to an external URL throu using a service like [ngrok][].
+2) Install the node modules: `npm install`.
 
-## IBM Watson Assistant v2
+3) Messager cannot call on a localhost adress. Expose your local server to an external URL by using a service like [ngrok][].
 
-[Visit the documentation][].
+4) Add the nessasary authorization keys to the contract files.
+    - `webhook_contract.js`
+        - verifyToken - verification token for Messanger. You deside its value, then provide it to your Facebook app's Messager product's settings page.
+        - pageAccessToken - key to the Messager API. Can be generated under your Messager pruduct's settigns page.
+    - `watson_assistant_contract.js`
+        - apiKey - key to the Watson Assistant API. Find it on your service's dashbord.
+        - url - service endpoint for your Watson Assistant service API.
+        - version - the day you created your service's credentials. Find it on your service's dashbord under service credentials.
+        - assistantId - the identifier for the assistant in question you are communicating with. Find it on your assistant's page under view API details. 
 
-The nessesary authorization values specified under `watson_assistant_contract.js` can be obtained at your Watson Assistant service dashboard in your IBM Cloud console.
+5) Test your application's functionality by submitting `npm test`
 
-## Facebook Messanger integration
+6) Chat with your page on Facebook Messager.
+
+For information about Watson Assistant and how to set up your Facebook app, look below.
+
+### IBM Watson Assistant v2
+
+Create an assistant and assign it a skill.
+
+[Visit the documentation][] for information about how to communicate with your API.
+
+### Facebook Messanger integration
 
 Check out this [getting started guide][] for more fun functions to add to this template.
 
-### Set up your Facebook app
+#### Set up your Facebook app
 
 A Facebook app is what links your dedicated facebook page to your node.js app's webhook, and is where you will configure various permissions for your API, generate access tokens, and choose what events are sent to your webhook.
 
-Setup your Facebook app with Facebook's [setup guide][]
+Setup your Facebook app with Facebook's [setup guide][] or follow the guild below.
 
-As long as your webhook URL is dynamic, you'll have to edit your Facebook application's webhook events any time it changes.
+##### Quick step-by-step
 
-#### `webhook_contract.js`
-
-To connect your node.js app with your Facebook app, you need a `verifyToken` and a `pageAccessToken`. For that, go to: https://developers.facebook.com/apps/<YOUR APP ID>/messenger/settings/.
-
-Choose your own verify token string and add its value to `verifyToken` in your contract file. Then configure your Facebook app accordingly at Webhooks by clicking on Edit events.
-
-The `pageAccessToken` can be generated under the Token Generation section.
-
-
-### Test your application's functionality
-
-Test your webhook verification by submitting: `curl -X GET "localhost:1337/webhook?hub.verify_token=<YOUR_VERIFY_TOKEN>&hub.challenge=CHALLENGE_ACCEPTED&hub.mode=subscribe"`
-
-Test your webhook events by submitting: `curl -H "Content-Type: application/json" -X POST "localhost:1337/webhook" -d '{"object": "page", "entry": [{"messaging": [{"message": "TEST_MESSAGE"}]}]}'`
+- Create a facebook app on `https://developers.facebook.com/apps/`.
+- Under advanced settings, create a page. Note that the page must be of type company/product, of category Application page and named so that it's name contains the name of your Facebook app.
+- Under Products (look below the side menu), add Messenger.
+- Under Messenger settings
+    - Under token generation, generate a page access token.
+    - Under webhooks
+        - Verify your webhook and add the page subscription events: messages.
+        - Subscribe your webhook to your Facebook app's dedicated page.
 
 [ngrok]: https://ngrok.com/
 [Visit the documentation]: https://cloud.ibm.com/apidocs/assistant-v2?code=node#authentication
