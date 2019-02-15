@@ -4,14 +4,19 @@
   "description": "HackYourWorld Node.js demo for Watson Assistant.",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "node ./node_modules/mocha/bin/mocha"
   },
   "author": "",
   "license": "MIT",
   "dependencies": {
     "body-parser": "^1.18.3",
+    "chai": "^4.2.0",
+    "chai-http": "^4.2.1",
     "express": "^4.16.4",
     "request": "^2.88.0",
     "watson-developer-cloud": "^3.18.0"
+  },
+  "devDependencies": {
+    "mocha": "^5.2.0"
   }
 }
