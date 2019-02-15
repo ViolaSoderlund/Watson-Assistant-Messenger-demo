@@ -1,30 +1,57 @@
 # HackYourWorld Watson Assistant Node.js demo
 
-[Expose your local server to an external URL][]
+## Get Started
 
-## IBM Watson Assistant v2
+1) Clone the project: `git clone git@git.eu-gb.bluemix.net:viola.soderlund/hackyourworld-watson-assistant-node.js-demo.git`
 
-[Visit the documentation for more information][]
+2) Install the node modules: `npm install`.
 
-## Facebook Messanger integration
+3) Messager cannot call on a localhost adress. Expose your local server to an external URL by using a service like [ngrok][].
 
-Check out this [Getting started guide][] for more fun functions to add to this template.
+4) Add the nessasary authorization keys to the contract files.
+    - `webhook_contract.js`
+        - verifyToken - verification token for Messanger. You deside its value, then provide it to your Facebook app's Messager product's settings page.
+        - pageAccessToken - key to the Messager API. Can be generated under your Messager pruduct's settigns page.
+    - `watson_assistant_contract.js`
+        - apiKey - key to the Watson Assistant API. Find it on your service's dashbord.
+        - url - service endpoint for your Watson Assistant service API.
+        - version - the day you created your service's credentials. Find it on your service's dashbord under service credentials.
+        - assistantId - the identifier for the assistant in question you are communicating with. Find it on your assistant's page under view API details. 
 
-### Setting up your Facebook app
+5) Test your application's functionality by submitting `npm test`
 
-A Facebook app is what links your Facebook Page to your webhook, and is where you will configure various settings for your Messenger bot, generate access tokens, and choose what events are sent to your webhook.
+6) Chat with your page on Facebook Messager.
 
-[Facebook for Developers' Facebook app setup guide][]
+For information about Watson Assistant and how to set up your Facebook app, look below.
 
-As long as your webhook URL is dynamic, you'll have to edit your Facebook application's webhook events. 
+### IBM Watson Assistant v2
 
-### Test application functionality
+Create an assistant and assign it a skill.
 
-Test your webhook verification by submitting: `curl -X GET "localhost:1337/webhook?hub.verify_token=<YOUR_VERIFY_TOKEN>&hub.challenge=CHALLENGE_ACCEPTED&hub.mode=subscribe"`
+[Visit the documentation][] for information about how to communicate with your API.
 
-Test your webhook events by submitting: `curl -H "Content-Type: application/json" -X POST "localhost:1337/webhook" -d '{"object": "page", "entry": [{"messaging": [{"message": "TEST_MESSAGE"}]}]}'`
+### Facebook Messanger integration
 
-[Expose your local server to an external URL]: https://ngrok.com/
-[Visit the documentation for more information]: https://cloud.ibm.com/apidocs/assistant-v2?code=node#authentication
-[Facebook for Developers' Facebook app setup guide]: https://developers.facebook.com/docs/messenger-platform/getting-started/app-setup
-[Getting started guide]: https://developers.facebook.com/docs/messenger-platform/getting-started/quick-start 
+Check out this [getting started guide][] for more fun functions to add to this template.
+
+#### Set up your Facebook app
+
+A Facebook app is what links your dedicated facebook page to your node.js app's webhook, and is where you will configure various permissions for your API, generate access tokens, and choose what events are sent to your webhook.
+
+Setup your Facebook app with Facebook's [setup guide][] or follow the guild below.
+
+##### Quick step-by-step
+
+- Create a facebook app on `https://developers.facebook.com/apps/`.
+- Under advanced settings, create a page. Note that the page must be of type company/product, of category Application page and named so that it's name contains the name of your Facebook app.
+- Under Products (look below the side menu), add Messenger.
+- Under Messenger settings
+    - Under token generation, generate a page access token.
+    - Under webhooks
+        - Verify your webhook and add the page subscription events: messages.
+        - Subscribe your webhook to your Facebook app's dedicated page.
+
+[ngrok]: https://ngrok.com/
+[Visit the documentation]: https://cloud.ibm.com/apidocs/assistant-v2?code=node#authentication
+[setup guide]: https://developers.facebook.com/docs/messenger-platform/getting-started/app-setup
+[getting started guide]: https://developers.facebook.com/docs/messenger-platform/getting-started/quick-start 
