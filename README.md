@@ -1,6 +1,12 @@
 # HackYourWorld Watson Assistant Node.js demo
 
-Messager cannot call on a localhost adress. [Expose your local server to an external URL][] throu using a service like ngrok.
+Clone the project:
+ssh     - `git clone git@git.eu-gb.bluemix.net:viola.soderlund/hackyourworld-watson-assistant-node.js-demo.git`
+https   - `git clone https://git.eu-gb.bluemix.net/viola.soderlund/hackyourworld-watson-assistant-node.js-demo.git`
+
+Install the node modules: `npm install`.
+
+Messager cannot call on a localhost adress. Expose your local server to an external URL throu using a service like [ngrok][].
 
 ## IBM Watson Assistant v2
 
@@ -35,7 +41,7 @@ Test your webhook verification by submitting: `curl -X GET "localhost:1337/webho
 
 Test your webhook events by submitting: `curl -H "Content-Type: application/json" -X POST "localhost:1337/webhook" -d '{"object": "page", "entry": [{"messaging": [{"message": "TEST_MESSAGE"}]}]}'`
 
-[Expose your local server to an external URL]: https://ngrok.com/
+[ngrok]: https://ngrok.com/
 [Visit the documentation]: https://cloud.ibm.com/apidocs/assistant-v2?code=node#authentication
 [setup guide]: https://developers.facebook.com/docs/messenger-platform/getting-started/app-setup
 [getting started guide]: https://developers.facebook.com/docs/messenger-platform/getting-started/quick-start 
