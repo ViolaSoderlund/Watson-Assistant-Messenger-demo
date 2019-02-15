@@ -1,8 +1,6 @@
 # HackYourWorld Watson Assistant Node.js demo
 
-Clone the project:
-ssh     - `git clone git@git.eu-gb.bluemix.net:viola.soderlund/hackyourworld-watson-assistant-node.js-demo.git`
-https   - `git clone https://git.eu-gb.bluemix.net/viola.soderlund/hackyourworld-watson-assistant-node.js-demo.git`
+Clone the project: `git clone git@git.eu-gb.bluemix.net:viola.soderlund/hackyourworld-watson-assistant-node.js-demo.git`
 
 Install the node modules: `npm install`.
 
