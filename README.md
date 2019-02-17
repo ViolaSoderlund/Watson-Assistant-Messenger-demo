@@ -6,9 +6,9 @@ Some of the code is taken from the Messenger and Watson Assistant v2 documentati
 
 ## Get Started
 
-1) Clone the project: `git clone git@git.eu-gb.bluemix.net:viola.soderlund/hackyourworld-watson-assistant-node.js-demo.git`
+1) Clone the project by entering the following to your cmd/terminal: `git clone git@git.eu-gb.bluemix.net:viola.soderlund/hackyourworld-watson-assistant-node.js-demo.git`
 
-2) Install the node modules: `npm install`.
+2) Then navigate into your git project and enter: `npm install`.
 
 3) Messager cannot call on a localhost adress. Expose your local server to an external URL by using a service like [ngrok][].
 
