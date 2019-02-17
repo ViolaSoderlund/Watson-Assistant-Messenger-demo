@@ -27,12 +27,14 @@ const PORT = process.env.PORT || 1337;
 // Sets server port and logs message on success
 const server = app.listen(PORT, () => console.log('Server is listening on PORT: ' + PORT));
 
+// On controlled closed server event
 server.on('close', function() {
   console.log(' Stopping ...');
 
   assistantManager.closeSession();
 });
 
+// Handle unexpected closure events
 process.on('SIGINT', function() {
   server.close(function() {
     process.exit(0);

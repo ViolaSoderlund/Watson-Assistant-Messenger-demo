@@ -1,5 +1,7 @@
 # HackYourWorld Watson Assistant Node.js demo
 
+This demo lets you communicate with a Watson assistant with Facebook Messenger as front-end. The assistant is restricted to take only text as input, and send text or image output.
+
 ## Get Started
 
 1) Clone the project: `git clone git@git.eu-gb.bluemix.net:viola.soderlund/hackyourworld-watson-assistant-node.js-demo.git`

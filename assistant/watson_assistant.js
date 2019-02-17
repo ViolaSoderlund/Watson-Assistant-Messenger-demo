@@ -4,8 +4,11 @@ const CREDENTIALS = require('./watson_assistant_contract');
 
 let assistant;
 
-let session;
+const session = {
+    id: undefined
+};
 
+// Initialize the assistant api
 function check_init() {
     if (!assistant) {
         // Create a new assistant
@@ -17,9 +20,9 @@ function check_init() {
     }
 }
 
+// Handle errors thrown by the assistant
 function handle_error(err) {
     if (err) {
-        // The error will be the first argument of the callback
         if (err.code == 404) {
       
             console.log("ERROR: Requested path does not exist.");
@@ -40,32 +43,47 @@ function handle_error(err) {
     return false;
 }
 
+// Open a new conversation session
 function open_session() {
     check_init();
 
-    if (!session) {
-        assistant.createSession({ assistant_id: CREDENTIALS.assistantId }, function(err, response) {
-            if (!handle_error(err)) {
-                session = response.session_id;
+    if (!session.id) {
+        return new Promise((resolve, reject) => {
+            assistant.createSession({ assistant_id: CREDENTIALS.assistantId }, function(err, response) {
+                if (!handle_error(err)) {
+                    if (!session.id) {
+                        // Set the new session id
+                        session.id = response.session_id;
+                    }
 
-                console.log("\nSession has been successfully created.");
-                console.log("- Session ID: " + response.session_id);
-                console.log("");
-            }
-            else {
-                console.log("\nUnsuccessful in opening a new session.\n");
-            }
+                    console.log("\nSession has been successfully created.");
+                    console.log("- Session ID: " + response.session_id);
+                    console.log("");
+
+                    resolve(true);
+                }
+                else {
+                    console.log("\nUnsuccessful in opening a new session.\n");
+
+                    reject(err);
+
+                    resolve(false);
+                }
+
+                return;
+            });
         });
     }
 }
 
+// Close the conversation session
 function close_session() {
     check_init();
 
-    if (session) {
+    if (session.id) {
         assistant.deleteSession({
                 assistant_id: CREDENTIALS.assistantId,
-                session_id: session,
+                session_id: session.id,
             }, 
             function(err, response) {
                 if (!handle_error(err)) {
@@ -73,6 +91,7 @@ function close_session() {
                     console.log("- Session ID: " + response.session_id);
                     console.log("");
 
+                    // Clear the session id
                     session = undefined;
                 }
                 else {
@@ -81,16 +100,20 @@ function close_session() {
             }
         );
     }
+    else {
+        console.log("WARNING: A session has not been open.");
+    }
 }
 
+// Send a message to the assistant and get a response
 function analyze_message(message) {
     check_init();
 
-    if (session) { 
+    if (session.id) { 
         return new Promise(function(resolve, reject) { 
             assistant.message({
                     assistant_id: CREDENTIALS.assistantId,
-                    session_id: session,
+                    session_id: session.id,
                     input: {
                         'message_type': 'text',
                         'text': message
@@ -104,12 +127,14 @@ function analyze_message(message) {
 
                         let data;
 
+                        // Wrap text response
                         if (response.output.generic[0].response_type == 'text') {
                             data = {
                                 type: 'text',
                                 text: response.output.generic[0].text
                             }
                         }
+                        // Wrap image response
                         else if (response.output.generic[0].response_type == 'image') {
                             data = {
                                 type: 'image',
