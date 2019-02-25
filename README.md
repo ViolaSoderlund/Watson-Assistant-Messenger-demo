@@ -22,7 +22,7 @@ Some of the code is taken from the Messenger and Watson Assistant v2 documentati
         - version - the day you created your service's credentials formatted as YYYY-MM-DD. Find it on your service's dashbord under service credentials.
         - assistantId - the identifier for the assistant in question you are communicating with. Find it on your assistant's page under view API details. 
 
-5) Test your application's functionality by submitting `npm test`
+5) Test your application's functionality by running `npm test`
 
 6) Chat with your page on Facebook Messager.
 
